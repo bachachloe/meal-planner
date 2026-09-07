@@ -574,13 +574,31 @@ export default function MealPlanner() {
         {page === "planning" && (
           <>
             {/* Header semaine */}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16, flexWrap: "wrap", gap: 8 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <button onClick={() => setWeekOffset(w => w - 1)} style={{ background: "none", border: "0.5px solid rgba(0,0,0,0.2)", borderRadius: 8, width: 32, height: 32, cursor: "pointer", fontSize: 16 }}>‹</button>
                 <span style={{ fontSize: isMobile ? 13 : 15, fontWeight: 500 }}>{fmt(dates[0])} – {fmt(dates[6])}</span>
                 <button onClick={() => setWeekOffset(w => w + 1)} style={{ background: "none", border: "0.5px solid rgba(0,0,0,0.2)", borderRadius: 8, width: 32, height: 32, cursor: "pointer", fontSize: 16 }}>›</button>
               </div>
-              <button onClick={() => setWeekOffset(0)} style={{ background: "none", border: "0.5px solid rgba(0,0,0,0.2)", borderRadius: 8, padding: "5px 12px", fontSize: 12, cursor: "pointer" }}>Aujourd'hui</button>
+              <div style={{ display: "flex", gap: 6 }}>
+                <button onClick={() => setWeekOffset(0)} style={{ background: "none", border: "0.5px solid rgba(0,0,0,0.2)", borderRadius: 8, padding: "5px 12px", fontSize: 12, cursor: "pointer" }}>Aujourd'hui</button>
+                <button
+                  onClick={() => window.location.reload()}
+                  title="Rafraîchir"
+                  style={{ background: "none", border: "0.5px solid rgba(0,0,0,0.2)", borderRadius: 8, width: 32, height: 32, cursor: "pointer", fontSize: 15, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  ↺
+                </button>
+                <button
+                  onClick={() => {
+                    if (window.confirm("Supprimer tous les repas de cette semaine ?")) {
+                      setMeals(() => ({}));
+                    }
+                  }}
+                  title="Vider la semaine"
+                  style={{ background: "none", border: "0.5px solid rgba(220,50,50,0.3)", borderRadius: 8, width: 32, height: 32, cursor: "pointer", fontSize: 15, display: "flex", alignItems: "center", justifyContent: "center", color: "#A32D2D" }}>
+                  🗑
+                </button>
+              </div>
             </div>
 
             {/* Switcher vue mobile */}
