@@ -199,12 +199,14 @@ function Slot({ slotKey, meal, row, dayIndex, compact, onOpen, onMove, dragState
         borderLeft: "0.5px solid rgba(0,0,0,0.08)",
         borderRight: dayIndex === 6 ? "0.5px solid rgba(0,0,0,0.08)" : "none",
         padding: compact ? 3 : 5,
-        minHeight: compact ? 32 : 58,
+        minHeight: compact ? 32 : 64,
+        height: compact ? 32 : 64,
         opacity: isDragging ? 0.35 : 1,
         background: isOver ? "rgba(0,0,0,0.05)" : "transparent",
         outline: isOver ? "1.5px dashed #bbb" : "none",
         borderRadius: isOver ? 6 : 0,
         transition: "background .1s, outline .1s",
+        boxSizing: "border-box",
       }}
     >
       {meal
@@ -390,7 +392,7 @@ function RecipesPage({ recipes, onCreateRecipe, onEditRecipe }) {
 
 function PlanningGrid({ dates, visibleIndexes, getMealDisplay, openModal, compact, dragState, setDragState, onMove }) {
   return (
-    <div style={{ display: "grid", gridTemplateColumns: `${compact ? 72 : 110}px repeat(${visibleIndexes.length}, minmax(0, 1fr))`, gap: 0 }}>
+    <div style={{ display: "grid", gridTemplateColumns: `${compact ? 72 : 110}px repeat(${visibleIndexes.length}, minmax(${compact ? 36 : 80}px, 1fr))`, gap: 0, minWidth: compact ? 0 : 600, overflowX: "auto" }}>
       <div />
       {visibleIndexes.map(i => (
         <div key={i} style={{ textAlign: "center", paddingBottom: compact ? 8 : 10 }}>
